@@ -23,9 +23,8 @@ const styles = makeStyles(theme => ({
     padding: 30
   },
   text: {
-    fontSize: 30,
+    fontSize: 20,
     color: "red",
-    textShadow: "2px 2px 2px #000",
     fontFamily: "Hanuman"
   }
 }));
@@ -48,7 +47,7 @@ const App = () => {
         </Toolbar>
       </AppBar>
       <Grid container spacing={5} className={classes.imgs}>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <div>
             <Typography className={classes.text}>
               មានសេវាកម្មតម្លើងមា៉ស៊ីនចម្រោះទឹកសុទ្ធគ្រប់ទំហំខ្នាត
@@ -56,7 +55,7 @@ const App = () => {
             <img src={big_banner} alt="big-banner" width="100%" className={classes.img}/>
           </div>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <div>
             <Typography className={classes.text}>
               មានសេវាកម្មតម្លើងមា៉ស៊ីនចម្រោះទឹកសុទ្ធគ្រប់ទំហំខ្នាត
@@ -64,7 +63,7 @@ const App = () => {
             <img src={small_banner} alt="small-banner" width="100%"  className={classes.img}/>
           </div>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <div>
             <Typography className={classes.text}>
               មានសេវាកម្មតម្លើងមា៉ស៊ីនចម្រោះទឹកសុទ្ធគ្រប់ទំហំខ្នាត
