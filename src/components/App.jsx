@@ -23,7 +23,7 @@ const styles = makeStyles(theme => ({
     padding: 30
   },
   text: {
-    fontSize: 20,
+    fontSize: 19,
     color: "red",
     fontFamily: "Hanuman"
   }
