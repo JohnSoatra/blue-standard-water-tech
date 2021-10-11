@@ -1,5 +1,5 @@
 import { Icon, Link, makeStyles, Typography } from '@material-ui/core';
-import { blue } from '@material-ui/core/colors';
+import { blue, green } from '@material-ui/core/colors';
 import { Facebook, Phone, Telegram } from "@material-ui/icons";
 import React from 'react';
 
@@ -7,7 +7,7 @@ const styles = makeStyles(theme => ({
   footer: {
     width: "100%",
     height: 150,
-    backgroundColor: "orange",
+    backgroundColor: blue[900],
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -16,10 +16,12 @@ const styles = makeStyles(theme => ({
     display: "flex"
   },
   contact: {
-    color: blue[700],
+    color: green[100],
     paddingLeft: 15,
     letterSpacing: 0.5,
-    cursor: "pointer"
+    cursor: "pointer",
+    fontWeight: 600,
+    fontSize: 18,
   },
   items: {
     width: "fit-content",
@@ -29,11 +31,12 @@ const styles = makeStyles(theme => ({
     marginTop: 15
   },
   icon: {
-    color: blue[900]
+    color: green[100]
   },
   contactUs: {
-    color: blue[900],
-    fontSize: 24
+    color: green[100],
+    fontSize: 24,
+    fontWeight: "bold"
   }
 }));
 const Footer = props => {

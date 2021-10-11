@@ -50,7 +50,10 @@ const styles = makeStyles(theme => ({
   topImg: {
     width: 700,
     borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20
+    borderBottomRightRadius: 20,
+    [theme.breakpoints.down("xs")]: {
+      width: "100%"
+    }
   },
   container: {
     padding: 30
