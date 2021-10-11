@@ -16,7 +16,7 @@ const styles = makeStyles(theme => ({
     color: "#fff"
   },
   toolbar: {
-    backgroundColor: blue[600],
+    backgroundColor: blue[900],
     display: "flex",
     justifyContent: "center",
     minHeight: 50

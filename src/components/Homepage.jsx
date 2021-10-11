@@ -10,12 +10,6 @@ import ui from "../img/ui.jpg"
 import React from 'react';
 const imgs = [
   {
-    src: big_banner, alt: "big_banner"
-  },
-  {
-    src: small_banner, alt: "small_banner"
-  },
-  {
     src: machine, alt: "machine"
   },
   {
@@ -45,12 +39,17 @@ const styles = makeStyles(theme => ({
     width: 300,
     height: 300,
     objectFit: "cover",
-    borderRadius: 10
+    borderRadius: 10,
+    [theme.breakpoints.down("xs")]: {
+      width: 200,
+      height: 200,
+    }
   },
   topImg: {
     width: 700,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    marginBottom: 20,
     [theme.breakpoints.down("xs")]: {
       width: "100%"
     }
@@ -59,7 +58,8 @@ const styles = makeStyles(theme => ({
     padding: 30
   },
   item: {
-    width: 300,
+    width: "fit-content",
+    padding: 10,
     margin: "auto",
   },
   text: {
@@ -78,7 +78,7 @@ const Homepage = props => {
     <Grid container justifyContent='center'>
       {
         imgs.map(im => 
-        <Grid item xs={12} md={4}>
+        <Grid item xs={6} md={4}>
           <div className={classes.item}>
             <img src={im.src} alt={im.alt} className={classes.img} />
           </div>

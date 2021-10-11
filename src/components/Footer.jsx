@@ -21,7 +21,8 @@ const styles = makeStyles(theme => ({
     letterSpacing: 0.5,
     cursor: "pointer",
     fontWeight: 600,
-    fontSize: 18,
+    fontSize: 17,
+    fontFamily: "roboto"
   },
   items: {
     width: "fit-content",
@@ -35,7 +36,7 @@ const styles = makeStyles(theme => ({
   },
   contactUs: {
     color: green[100],
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold"
   }
 }));
