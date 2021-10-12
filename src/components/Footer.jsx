@@ -1,5 +1,5 @@
-import { Icon, Link, makeStyles, Typography } from '@material-ui/core';
-import { blue, green } from '@material-ui/core/colors';
+import { Link, makeStyles, Typography } from '@material-ui/core';
+import { blue } from '@material-ui/core/colors';
 import { Facebook, Phone, Telegram } from "@material-ui/icons";
 import React from 'react';
 
@@ -12,17 +12,10 @@ const styles = makeStyles(theme => ({
     flexDirection: "column",
     alignItems: "center",
   },
-  item: {
-    display: "flex"
-  },
-  contact: {
-    color: green[100],
-    paddingLeft: 15,
-    letterSpacing: 0.5,
-    cursor: "pointer",
-    fontWeight: 600,
-    fontSize: 17,
-    fontFamily: "roboto"
+  contactUs: {
+    color: blue[100],
+    fontSize: 19,
+    fontWeight: "bold"
   },
   items: {
     width: "fit-content",
@@ -31,14 +24,21 @@ const styles = makeStyles(theme => ({
     alignItems: "flex-start",
     marginTop: 15
   },
-  icon: {
-    color: green[100]
+  item: {
+    display: "flex"
   },
-  contactUs: {
-    color: green[100],
-    fontSize: 22,
-    fontWeight: "bold"
-  }
+  icon: {
+    color: blue[100]
+  },
+  contact: {
+    color: blue[100],
+    paddingLeft: 15,
+    letterSpacing: 0.5,
+    cursor: "pointer",
+    fontWeight: 600,
+    fontSize: 16,
+    fontFamily: "roboto"
+  },
 }));
 const Footer = props => {
   const classes = styles();
@@ -47,13 +47,13 @@ const Footer = props => {
     <Typography className={classes.contactUs}>Contact Us:</Typography>
     <div className={classes.items}>
       <div className={classes.item}>
-        <Phone className={classes.icon} /> <Link className={classes.contact} target="_blank" href="tel:+85516472233"> Phone </Link>
+        <Phone className={classes.icon} /> <Link className={classes.contact} target="_blank" href="tel:016472233"> Phone </Link>
       </div>
       <div className={classes.item}>
         <Telegram className={classes.icon} /> <Link className={classes.contact} target="_blank" href='https://t.me/bluestandardwatertech'> Telegram </Link>
       </div>
       <div className={classes.item}>
-        <Facebook className={classes.icon} /> <Link className={classes.contact} target="_blank" href="https://fb.me/Bluestandard-Water-Tech-101147765611982"> Facebook </Link>
+        <Facebook className={classes.icon} /> <Link className={classes.contact} target="_blank" href="https://www.facebook.com/Bluestandard-Water-Tech-101147765611982"> Facebook </Link>
       </div>
     </div>
   </div>

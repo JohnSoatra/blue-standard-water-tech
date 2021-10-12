@@ -1,6 +1,5 @@
 import { Grid, Typography, makeStyles } from '@material-ui/core';
 import big_banner from "../img/big-banner.jpg";
-import small_banner from "../img/small-banner.jpg";
 import machine from "../img/machine.jpg";
 import atCar from "../img/at car.jpg";
 import blueImg from "../img/blue.jpg";
@@ -31,42 +30,43 @@ const imgs = [
 
 const styles = makeStyles(theme => ({
   homepage: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
+    width: "95%",
+    margin: "auto"
   },
-  img: {
-    width: 300,
-    height: 300,
-    objectFit: "cover",
-    borderRadius: 10,
-    [theme.breakpoints.down("xs")]: {
-      width: 200,
-      height: 200,
-    }
+  topImgWrapper: {
+    width: "fit-content",
+    margin: "0 auto"
   },
   topImg: {
-    width: 700,
+    maxWidth: 700,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    marginBottom: 20,
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("sm")]: {
       width: "100%"
     }
   },
-  container: {
-    padding: 30
+  imgContainer: {
+    marginTop: 20,
+    marginBottom: 20,
   },
   item: {
-    width: "fit-content",
-    padding: 10,
-    margin: "auto",
+    display: "flex",
+    justifyContent: "center"
   },
-  text: {
-    fontSize: 19,
-    color: "red",
-    fontFamily: "Hanuman"
-  }
+  img: {
+    width: 250,
+    height: 250 + 250 * 1/5,
+    objectFit: "cover",
+    borderRadius: 10,
+    [theme.breakpoints.down("md")]: {
+      width: 200,
+      height: 200 + 200 * 1/5,
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      height: "calc(width + width * 1/5)",
+    }
+  },
 }));
 
 const Homepage = props => {
@@ -74,14 +74,14 @@ const Homepage = props => {
 
   return (
   <div className={classes.homepage}>
-    <img src={big_banner} alt="small-banner" className={classes.topImg}/>
-    <Grid container justifyContent='center'>
+    <div className={classes.topImgWrapper}>
+      <img src={big_banner} alt="small-banner" className={classes.topImg}/>
+    </div>
+    <Grid container justifyContent='center' spacing={2} className={classes.imgContainer}>
       {
         imgs.map(im => 
-        <Grid item xs={6} md={4}>
-          <div className={classes.item}>
-            <img src={im.src} alt={im.alt} className={classes.img} />
-          </div>
+        <Grid item xs={6} sm={4} md={3} className={classes.item}>
+          <img src={im.src} alt={im.alt} className={classes.img}/>
         </Grid>
         )
       }
