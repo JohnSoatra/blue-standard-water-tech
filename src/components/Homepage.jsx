@@ -79,8 +79,8 @@ const Homepage = props => {
     </div>
     <Grid container justifyContent='center' spacing={2} className={classes.imgContainer}>
       {
-        imgs.map(im => 
-        <Grid item xs={6} sm={4} md={3} className={classes.item}>
+        imgs.map((im, i) => 
+        <Grid item xs={6} sm={4} md={3} className={classes.item} key={i}>
           <img src={im.src} alt={im.alt} className={classes.img}/>
         </Grid>
         )

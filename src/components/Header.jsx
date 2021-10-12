@@ -1,5 +1,5 @@
 import { makeStyles, AppBar, Toolbar, Typography, Button } from '@material-ui/core';
-import { blue, green } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
 import React from 'react';
 import logo from "../img/logo.jpg";
 
