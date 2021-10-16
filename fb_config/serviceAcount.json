@@ -1,5 +1,4 @@
-const firebase = require("firebase-admin");
-const serviceAccount = {
+{
   "type": "service_account",
   "project_id": "blue-standard",
   "private_key_id": "4c866038908148661209986162bec5304f516055",
@@ -10,8 +9,4 @@ const serviceAccount = {
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-cu29b%40blue-standard.iam.gserviceaccount.com"
-};
-firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount)
-});
-module.exports = firebase;
+}
