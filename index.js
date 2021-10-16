@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const port = process.env.port || 5000;
-const firebase = require("./fb_config/fb_admin");
+const firebase = require("./fb_admin");
 const storage = firebase.storage();
 const buck = storage.bucket("gs://blue-standard.appspot.com");
 app.use(cors());
