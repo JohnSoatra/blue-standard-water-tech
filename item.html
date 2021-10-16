@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="shortcut-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="logo-192.png" />
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="iconfont/material-icons.css">
+    <link rel="stylesheet" href="item.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-status-bar" content="#ffffff">
+    <meta name="description" content="មានសេវាកម្មតម្លើងមា៉ស៊ីនចម្រោះទឹកសុទ្ធគ្រប់ទំហំខ្នាត" />
+    <meta name="keyword" content="blue-standard-water-tech, blue-standard-water, blue-standard, blue standard water tech">
+    <meta property="og:image" content="https://blue-standard-water-tech.com/big-banner.jpg">
+    <meta property="twitter:image" content="https://blue-standard-water-tech.com/big-banner.jpg">
+    <script src="jquery.min.js"></script>
+    <title>Item</title>
+  </head>
+  <body>
+    <div class="toolbar">
+      <span id="title">តារាងព័ត៌មានទំនិញ</span>
+      <img src="logo.jpg" alt="logo" class="logo">
+    </div>
+    <div id="container">
+      <div class="img-container">
+        <div class="img-wrapper"></div>
+        <span class="counter"></span>
+        <div class="slider">
+          <i class="material-icons iconLeft">chevron_left</i>
+          <i class="material-icons iconRight">chevron_right</i>
+        </div>
+      </div>
+      <div class="name-price">
+        <span class="name"></span>
+        <span>:</span>
+        <span class="price"></span>
+      </div>
+      <div class="desc-wrapper">
+        <span class="desc"></span>
+      </div>
+    </div>
+    <div class="back-wrapper">
+      <i class="material-icons-outlined iconBack">west</i>
+    </div>
+    <div class="hole-screen"></div>
+    <img src="" alt="showed-image" class="img-show">
+    <script src="firebase/firebase-app.js"></script>
+    <script src="firebase/firebase-firestore.js"></script>
+    <script src="firebase/firebase-storage.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBBrfNZ7TpxjlXVNWMz72TZltMr5ucAgaE",
+        authDomain: "blue-standard.firebaseapp.com",
+        projectId: "blue-standard",
+        storageBucket: "blue-standard.appspot.com",
+        messagingSenderId: "113504743650",
+        appId: "1:113504743650:web:b73f183046874cfd102ebb"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      const storage = firebase.app().storage("gs://blue-standard.appspot.com")
+      const ref = storage.ref();
+      db.enablePersistence()
+    </script>
+    <script src="item.js"></script>
+  </body>
+</html>
