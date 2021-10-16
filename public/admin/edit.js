@@ -1,36 +1,19 @@
 const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const deleteId = params.get("id");
 
 async function getData() {
-  const fs = [];
-  await db.collection("items").doc(id).get().then(async item => {
+  await db.collection("items").doc(deleteId).get().then(async item => {
     if (item.exists) {
       const data = item.data();
       document.querySelector("input[name='name']").value = data.name;
       document.querySelector("input[name='price']").value = data.price;
       document.querySelector("textarea[name='desc']").value = data.description;
-      await ref.child(id).listAll().then(list =>
-        list.items.forEach(async item => 
-          await item.getDownloadURL().then(async url =>
-            // await fetch(url, {mode: "cors"}).then(async res =>
-            //   await res.blob().then(b => {
-            //     fs.push(new File([b], item.name, {type: b.type}));
-            //     console.log(url);
-            //   }
-            //   )
-            // )
-            {
-              const xhr = new XMLHttpRequest();
-              xhr.responseType = "blob";
-              xhr.open("get", url);
-              xhr.send();
-              xhr.onload = () => {
-                console.log("success");
-              }
-              xhr.onerror = () => {
-                console.log("error");
-              }
-            }
+      await ref.child(deleteId).listAll().then(list =>
+        list.items.forEach(async item =>
+          await fetch(`/${deleteId}/${item.name}`).then(async res =>
+            await res.blob().then(blob => {
+              appendImage([new File([blob], item.name)]);
+            })
           )
         )
       );
@@ -68,15 +51,17 @@ $("form.editForm").on("submit", async event => {
     return;
   }
   price = parseFloat(price);
-  await db.collection("items").doc(id).update({name, price, description}).then(async data =>
-    await ref.child(data.id).listAll().then(list =>
-      list.items.forEach(async item =>
-        await item.delele()
-      )
+  await db.collection("items").doc(deleteId).update({name, price, description}).then(() =>
+    ref.child(deleteId).listAll().then(list =>
+      list.items.forEach(item =>{
+        ref.child(`${deleteId}/${item.name}`).delete().then(() => console.log("delete"))
+      })
     ).then(() =>
-        files.map(async (file) =>
-          await ref.child(`${data.id}/${file.name}`).put(file)
+        files.map(file =>
+          {
+            ref.child(`${deleteId}/${file.name}`).put(file).then(() => console.log("upload"));
+          }
         )
-    )
+      )
   );
 });

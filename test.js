@@ -1,4 +1,7 @@
-const ar = [ 1, 2, 3];
-console.log(ar);
-ar.splice(0);
-console.log(ar);
+const o ={};
+// console.log(Object.keys(o));
+if (o.name) {
+  console.log("has data")
+} else {
+  console.log("has no data")
+}
