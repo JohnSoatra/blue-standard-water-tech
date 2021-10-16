@@ -16,7 +16,6 @@ self.addEventListener("activate", event => {
     ))
   );
 });
-
 self.addEventListener("fetch", event => {
   const url = event.request.url;
   event.respondWith(
