@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const firebase = require("./fb_admin");
 const app = express();
-const port = process.env.port || 8080;
+const port = process.env.port || 5000;
 
 app.use(cors());
 
