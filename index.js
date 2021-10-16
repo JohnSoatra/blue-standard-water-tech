@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { default: axios } = require("axios");
-const path = require("path");
+const firebase = require("./fb_admin");
 const app = express();
 const port = process.env.port || 8080;
 
