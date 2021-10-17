@@ -1,3 +1,7 @@
+let preName;
+let prePrice;
+let preDescription;
+const preFiles = [];
 const files = [];
 $("form.addForm").on("submit", async event => {
   event.preventDefault();
@@ -28,9 +32,9 @@ $("form.addForm").on("submit", async event => {
     return;
   }
   price = parseFloat(price);
-  await db.collection("items").add({name, price, description}).then(data => 
-    files.forEach(async file => {
-      await ref.child(`${data.id}/${file.name}`).put(file);
+  await db.collection(dbName).add({name, price, description}).then(data => 
+    files.forEach(file => {
+      ref.child(`${stName}${data.id}/${file.name}`).put(file);
     })
   ).then(() => console.log("success"));
 });
@@ -61,7 +65,7 @@ $("i.iconDeleteAll").on("click", function(event) {
 });
 $("input[name='file']").on("change", function(event) {
   if (this.files) {
-    appendImage(this.files);
+    appendFiles(this.files);
     if ($("i.iconDeleteAll").css("display") !== "unset") {
       $("i.iconDeleteAll").css("display", "unset");
     }
@@ -79,18 +83,18 @@ function handleDelete(element) {
     $("i.iconDeleteAll").css("display", "none");
   }
 }
-function appendImage(fs) {
-  const imgContainer = $("#img-container");
+function appendFile(file) {
+  $("#img-container").append(`
+    <div class="img-wrapper" data-index="${files.length}">
+      <img src='${URL.createObjectURL(file)}' alt='image' class="img"/>
+      <i class="material-icons-outlined" onclick="handleDelete(this)"​ title="ដករូបនេះចេញ">close</i>
+    </div>
+  `);
+  files.push(file);
+}
+function appendFiles(fs) {
   for (let i = 0; i < fs.length; i ++) {
-    const file = fs[i];
-    const url = URL.createObjectURL(file);
-    imgContainer.append(`
-      <div class="img-wrapper" data-index="${files.length}">
-        <img src='${url}' alt='image' class="img"/>
-        <i class="material-icons-outlined" onclick="handleDelete(this)"​ title="ដករូបនេះចេញ">close</i>
-      </div>
-    `);
-    files.push(file);
+    appendFile(fs[i]);
   }
 }
 $(".back-wrapper").on("click", () => {

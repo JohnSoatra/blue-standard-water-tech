@@ -1,27 +1,74 @@
 const params = new URLSearchParams(window.location.search);
-const deleteId = params.get("id");
+const id = params.get("id");
 
+function appendUrl(url, name) {
+  $("#img-container").append(`
+    <div class="img-wrapper" data-index="${preFiles.length}">
+      <img src='${url}' alt='image' class="img"/>
+      <i class="material-icons-outlined" onclick="handleDelete(this)"​ title="ដករូបនេះចេញ">close</i>
+    </div>
+  `);
+  preFiles.push(name);
+}
+async function addFile(url) {
+  let name = url.split("/");
+  name = name[name.length - 1];
+  await fetch(url).then(res => {
+    res.blob().then(blob => files.push(new File([blob], name)));
+  });
+}
 async function getData() {
-  await db.collection("items").doc(deleteId).get().then(async item => {
+  await db.collection(dbName).doc(id).get().then(item => {
     if (item.exists) {
       const data = item.data();
-      document.querySelector("input[name='name']").value = data.name;
-      document.querySelector("input[name='price']").value = data.price;
-      document.querySelector("textarea[name='desc']").value = data.description;
-      await ref.child(deleteId).listAll().then(list =>
-        list.items.forEach(async item =>
-          await fetch(`https://apis.blue-standard-water-tech.com/${deleteId}/${item.name}`).then(async res =>
-            await res.blob().then(blob => {
-              appendImage([new File([blob], item.name)]);
-            })
-          )
+      preName = data.name;
+      prePrice = data.price;
+      preDescription = data.description;
+      document.querySelector("input[name='name']").value = preName;
+      document.querySelector("input[name='price']").value = prePrice;
+      document.querySelector("textarea[name='desc']").value = preDescription;
+      ref.child(`${stName}${id}`).listAll().then(list =>
+        list.items.forEach(item =>
+          item.getDownloadURL().then(url => {
+            appendUrl(url, item.name);
+            addFile(`https://apis.blue-standard-water-tech.com/${stName}${id}/${item.name}`);
+          })
         )
       );
     }
   });
 }
 getData();
-
+async function imageUploader(cb) {
+  await ref.child(`${stName}${id}`).listAll().then(list =>
+    list.items.forEach(item => {
+      let deleted = true;
+      for (let file of files) {
+        if (file.name === item.name) {
+          deleted = false;
+          break;
+        }
+      }
+      if (deleted) {
+        ref.child(`${stName}${id}/${item.name}`).delete().then(() => console.log("deleted"));
+      }
+    })
+  )
+  .then(() =>
+    files.forEach(file => {
+      let uploaded = true;
+      for (let name of preFiles) {
+        if (file.name === name) {
+          uploaded = false;
+          break;
+        }
+      }
+      if (uploaded) {
+        ref.child(`${stName}${id}/${file.name}`).put(file).then(() => console.log("puted"));
+      }
+    })
+  ).then(cb);
+}
 $("form.editForm").on("submit", async event => {
   event.preventDefault();
   const name = $("input[name='name']").val();
@@ -51,17 +98,23 @@ $("form.editForm").on("submit", async event => {
     return;
   }
   price = parseFloat(price);
-  await db.collection("items").doc(deleteId).update({name, price, description}).then(() =>
-    ref.child(deleteId).listAll().then(list =>
-      list.items.forEach(item =>{
-        ref.child(`${deleteId}/${item.name}`).delete().then(() => console.log("delete"))
-      })
-    ).then(() =>
-        files.map(file =>
-          {
-            ref.child(`${deleteId}/${file.name}`).put(file).then(() => console.log("upload"));
-          }
-        )
-      )
-  );
+  const updateObject = {};
+  if (name !== preName) updateObject["name"] = name;
+  if (price !== prePrice) updateObject["price"] = price;
+  if (preDescription) updateObject["description"] = description;
+  const cb = () => {
+    preName = name;
+    prePrice = price;
+    preDescription = description;
+    preFiles.splice(0);
+    files.forEach(file => preFiles.push(file.name));
+    console.log("success");
+  }
+  if (Object.keys(updateObject).length > 0) {
+    await db.collection(dbName).doc(id).update(updateObject).then(() =>
+      imageUploader(cb)
+    ); 
+  } else {
+    imageUploader(cb);
+  }
 });

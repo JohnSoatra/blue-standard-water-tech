@@ -4,13 +4,13 @@ let currentImage = 1;
 let imgAmount = 0;
 
 async function getData() {
-  await db.collection("items").doc(id).get().then(async item => {
+  await db.collection(dbName).doc(id).get().then(async item => {
     if (item.exists) {
       const data = item.data();
       $(".name").text(data.name);
       $(".price").text(data.price + "$");
       $(".desc").text(data.description);
-      await ref.child(id).listAll().then(list => {
+      await ref.child(`${stName}${id}`).listAll().then(list => {
         list.items.forEach(async item =>
           await item.getDownloadURL().then(url => {
             $(".img-wrapper").append(`
@@ -41,7 +41,7 @@ $(".iconLeft").on("click", function(event) {
     $(".counter").text(`${currentImage}/${imgAmount}`);
   }
 });
-$(".iconRight").on("click", function(event) {
+$(".iconRight").on("click", () => {
   document.querySelector(".img-wrapper").scrollBy({
     left: $(".img-wrapper").width(),
     behavior: "smooth",

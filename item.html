@@ -62,8 +62,9 @@
       const db = firebase.firestore();
       const storage = firebase.app().storage("gs://blue-standard.appspot.com")
       const ref = storage.ref();
-      db.enablePersistence()
+      db.enablePersistence();
     </script>
+    <script src="names.js"></script>
     <script src="item.js"></script>
   </body>
 </html>

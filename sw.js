@@ -7,7 +7,6 @@ self.addEventListener("install", event => {
     caches.open(static).then(cache => cache.addAll(assets))
   );
 });
-
 self.addEventListener("activate", event => {
   const saves = [static];
   event.waitUntil(
@@ -18,10 +17,12 @@ self.addEventListener("activate", event => {
 });
 self.addEventListener("fetch", event => {
   const url = event.request.url;
-  event.respondWith(
-    caches.match(url).then(res => res ? res : fetch(url)
+  if (url.endsWith(".html")) {
+    event.respondWith(
+      caches.match(url).then(res => res ? res : fetch(url)
       .then(res => res)
       .catch(() => caches.match("fallback.html"))
-    )
-  );
+      )
+    );
+  }
 });

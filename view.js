@@ -1,6 +1,6 @@
 let deleteId = "";
 async function getData() {
-  await db.collection("items").get().then(qs => {
+  await db.collection(dbName).get().then(qs => {
     qs.forEach(doc => {
       const id = doc.id;
       const name = doc.data().name;
@@ -8,20 +8,20 @@ async function getData() {
       const itemWrapper = document.createElement("div");
       itemWrapper.id = id;
       itemWrapper.className = "item-wrapper";
-      ref.child(id).list({maxResults: 1}).then(list =>
-        list.items.forEach(item =>
+      ref.child(`${stName}${id}`).list({maxResults: 1}).then(list =>
+        list.items.forEach(item => {
           item.getDownloadURL().then(url => {
             itemWrapper.innerHTML = `
-            <span class="item-name">${name}</span>
-            <img src="${url}" alt="at-car" class="item-img" onclick="handleVisit('${id}')">
-            <div class="options">
-              <i class="material-icons iconEdit" onclick="handleEdit('${id}')">edit</i>
-              <i class="material-icons iconDelete" onclick="handleDelete('${name}', '${id}')">delete</i>
-            </div>
+              <span class="item-name">${name}</span>
+              <img src="${url}" alt="at-car" class="item-img" onclick="handleVisit('${id}')">
+              <div class="options">
+                <i class="material-icons iconEdit" onclick="handleEdit('${id}')">edit</i>
+                <i class="material-icons iconDelete" onclick="handleDelete('${name}', '${id}')">delete</i>
+              </div>
             `;
             container.append(itemWrapper);
           })
-        )
+        })
       );
     });
   });
@@ -49,10 +49,10 @@ $(".action-no, .action-yes").on("click", () => {
   $(".modal-wrapper, .hole-screen").fadeOut("fast");
 });
 $(".action-yes").on("click", async () => {
-  await db.collection("items").doc(deleteId).delete().then(() =>
-    ref.child(deleteId).listAll().then(list =>
+  await db.collection(dbName).doc(deleteId).delete().then(() =>
+    ref.child(`${stName}${deleteId}`).listAll().then(list =>
       list.items.forEach(item =>
-        ref.child(`${deleteId}/${item.name}`).delete()
+        ref.child(`${stName}${deleteId}/${item.name}`).delete()
       )
     ).then(() => {
       const container = document.getElementsByClassName("item-container")[0];
