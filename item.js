@@ -1,6 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
-let currentImage = 1;
+let currentImage = 0;
 let imgAmount = 0;
 
 async function getData() {
@@ -11,12 +11,15 @@ async function getData() {
       $(".price").text(data.price + "$");
       $(".desc").text(data.description);
       await ref.child(`${stName}${id}`).listAll().then(list => {
-        list.items.forEach(async item =>
+        list.items.map(async (item, index) =>
           await item.getDownloadURL().then(url => {
             $(".img-wrapper").append(`
               <div class="img-item">
-                <img src="${url}" alt="img" class="img" onclick="viewImage('${url}')">
+                <img src="${url}" alt="img" class="img" onclick="viewImage(${index})">
               </div>
+            `);
+            $(".showed-image-container").append(`
+              <img src="${url}" alt="showed-image" class="img-show" data-index="${index}" onclick='handleHide(${index})'">
             `);
           })
         );
@@ -24,7 +27,7 @@ async function getData() {
         if (imgAmount === 1) {
           $(".slider").css("display", "none");
         }
-        $(".counter").text(`${currentImage}/${imgAmount}`);
+        $(".counter").text(`${currentImage + 1}/${imgAmount}`);
       });
     }
   });
@@ -36,9 +39,9 @@ $(".iconLeft").on("click", function(event) {
     left: -$(".img-wrapper").width(),
     behavior: "smooth",
   });
-  if (currentImage > 1) {
+  if (currentImage > 0) {
     currentImage --;
-    $(".counter").text(`${currentImage}/${imgAmount}`);
+    $(".counter").text(`${currentImage + 1}/${imgAmount}`);
   }
 });
 $(".iconRight").on("click", () => {
@@ -46,18 +49,19 @@ $(".iconRight").on("click", () => {
     left: $(".img-wrapper").width(),
     behavior: "smooth",
   });
-  if (currentImage < imgAmount) {
+  if (currentImage < imgAmount - 1) {
     currentImage ++;
-    $(".counter").text(`${currentImage}/${imgAmount}`);
+    $(".counter").text(`${currentImage + 1}/${imgAmount}`);
   }
 });
-function viewImage(src) {
-  $(".img-show").attr("src", src);
-  $(".img-show, .hole-screen").fadeIn(250);
+function viewImage(index) {
+  $(`.img-show[data-index='${index}'], .hole-screen`).fadeIn(250);
 }
-$(".hole-screen, .img-show").on("click", () => {
-  $(".img-show, .hole-screen").fadeOut("fast");
-});
+function handleHide(index) {
+  console.log(index);
+  $(`.img-show[data-index='${index}'], .hole-screen`).fadeOut("fast");
+}
+$(".hole-screen").on("click", () => handleHide(currentImage));
 $(".back-wrapper").on("click", () => {
   window.history.go(-1);
 });

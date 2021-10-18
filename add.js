@@ -31,10 +31,26 @@ $("form.addForm").on("submit", async event => {
     setTimeout(() => $(".wanning").fadeOut("slow"), 2500);
     return;
   }
+  $(".hole-screen").css({
+    display: "block"
+  });
+  $(".loading").css({
+    display: "flex"
+  });
   price = parseFloat(price);
   await db.collection(dbName).add({name, price, description}).then(data => 
-    files.forEach(file => {
-      ref.child(`${stName}${data.id}/${file.name}`).put(file);
+    files.map((file, index) => {
+      ref.child(`${stName}${data.id}/${file.name}`).put(file).then(() => {
+        if (index === files.length - 1) {
+          $(".hole-screen, .loading").css({
+            display: "none"
+          });
+          document.querySelector("input[name='name']").value = "";
+          document.querySelector("input[name='price']").value = "";
+          document.querySelector("textarea[name='desc']").value = "";
+          $("i.iconDeleteAll").trigger("click");
+        }
+      });
     })
   ).then(() => console.log("success"));
 });
@@ -58,7 +74,7 @@ $("textarea[name='desc']").on("keyup", function(event) {
 $("#fileBtn").on("click", function(event) {
   $("input[name='file']").trigger("click");
 });
-$("i.iconDeleteAll").on("click", function(event) {
+$("i.iconDeleteAll").on("click", function() {
   files.splice(0);
   $("div#img-container").children().remove();
   this.style.display = "none";

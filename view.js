@@ -51,19 +51,21 @@ $(".action-no, .action-yes").on("click", () => {
 $(".action-yes").on("click", async () => {
   await db.collection(dbName).doc(deleteId).delete().then(() =>
     ref.child(`${stName}${deleteId}`).listAll().then(list =>
-      list.items.forEach(item =>
-        ref.child(`${stName}${deleteId}/${item.name}`).delete()
+      list.items.map((item, index) =>
+        ref.child(`${stName}${deleteId}/${item.name}`).delete().then(() => {
+          if (index === list.items.length - 1) {
+            const container = document.getElementsByClassName("item-container")[0];
+            const children = container.children;
+            for (let i = 0; i < children.length; i ++) {
+              const child = children.item(i);
+              if (child.id === deleteId) {
+                container.removeChild(child);
+                break;
+              }
+            }
+          }
+        })
       )
-    ).then(() => {
-      const container = document.getElementsByClassName("item-container")[0];
-      const children = container.children;
-      for (let i = 0; i < children.length; i ++) {
-        const child = children.item(i);
-        if (child.id === deleteId) {
-          container.removeChild(child);
-          break;
-        }
-      }
-    })
+    )
   );
 });

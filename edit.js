@@ -5,16 +5,26 @@ function appendUrl(url, name) {
   $("#img-container").append(`
     <div class="img-wrapper" data-index="${preFiles.length}">
       <img src='${url}' alt='image' class="img"/>
-      <i class="material-icons-outlined" onclick="handleDelete(this)"​ title="ដករូបនេះចេញ">close</i>
+      <i class="material-icons-outlined delete1" onclick="handleDelete(this)"​ title="ដករូបនេះចេញ">close</i>
     </div>
   `);
   preFiles.push(name);
 }
-async function addFile(url) {
+async function addFile(url, isAll) {
   let name = url.split("/");
   name = name[name.length - 1];
   await fetch(url).then(res => {
-    res.blob().then(blob => files.push(new File([blob], name)));
+    res.blob().then(blob => {
+      files.push(new File([blob], name));
+      if (isAll) {
+        $("button[type='submit']").css({
+          display: "flex"
+        });
+        $(".delete1, .iconDeleteAll").css({
+          display: "unset"
+        });
+      }
+    });
   });
 }
 async function getData() {
@@ -28,10 +38,10 @@ async function getData() {
       document.querySelector("input[name='price']").value = prePrice;
       document.querySelector("textarea[name='desc']").value = preDescription;
       ref.child(`${stName}${id}`).listAll().then(list =>
-        list.items.forEach(item =>
+        list.items.map((item, index) =>
           item.getDownloadURL().then(url => {
             appendUrl(url, item.name);
-            addFile(`https://apis.blue-standard-water-tech.com/${stName}${id}/${item.name}`);
+            addFile(`https://apis.blue-standard-water-tech.com/${stName}${id}/${item.name}`, index === list.items.length - 1);
           })
         )
       );
@@ -99,6 +109,12 @@ $("form.editForm").on("submit", async event => {
   }
   price = parseFloat(price);
   const updateObject = {};
+  $(".hole-screen").css({
+    display: "block"
+  });
+  $(".loading").css({
+    display: "flex"
+  });
   if (name !== preName) updateObject["name"] = name;
   if (price !== prePrice) updateObject["price"] = price;
   if (preDescription) updateObject["description"] = description;
@@ -108,7 +124,9 @@ $("form.editForm").on("submit", async event => {
     preDescription = description;
     preFiles.splice(0);
     files.forEach(file => preFiles.push(file.name));
-    console.log("success");
+    $(".hole-screen, .loading").css({
+      display: "none"
+    });
   }
   if (Object.keys(updateObject).length > 0) {
     await db.collection(dbName).doc(id).update(updateObject).then(() =>

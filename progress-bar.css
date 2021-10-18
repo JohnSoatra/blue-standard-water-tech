@@ -1,0 +1,181 @@
+:root {
+  --progress-bar-color: #fff;
+}
+.progress-bar-small, .progress-bar-medium, .progress-bar-large {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  animation-name: container;
+  animation-duration: 1357ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.progress-bar-small .inner, .progress-bar-medium .inner, .progress-bar-large .inner {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  overflow: hidden;
+  animation: inner 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.progress-bar-small .inner {
+  width: 25px;
+  height: 25px;
+}
+.progress-bar-medium .inner {
+  width: 50px;
+  height: 50px;
+}
+.progress-bar-large .inner {
+  width: 100px;
+  height: 100px;
+}
+.progress-bar-small .circle, .progress-bar-medium .circle, .progress-bar-large .circle {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation-duration: 2000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.progress-bar-small .circle {
+  /* cx = 50%, cy = -(size / 2 - border)*/
+  animation-name: circle-small;
+  border: 1px solid var(--progress-bar-color);
+  transform-origin: 50% -5.25px;
+}
+.progress-bar-medium .circle {
+  animation-name: circle-medium;
+  border: 2px solid var(--progress-bar-color);
+  transform-origin: 50% -10.5px;
+}
+.progress-bar-large .circle {
+  animation-name: circle-large;
+  border: 3px solid var(--progress-bar-color);
+  transform-origin: 50% -22px;
+}
+@keyframes circle-small {
+  0% {
+    transform: rotate(0deg) translate(0, -12.5px);
+  }
+  25% {
+    transform: rotate(0deg) translate(0, -12.5px);
+  }
+  43% {
+    border-right-color: var(--progress-bar-color);
+  }
+  44% {
+    border-right-color: transparent;
+  }
+  50% {
+    transform: rotate(-90deg) translate(0, -12.5px);
+  }
+  65% {
+    transform: rotate(-180deg) translate(0, -12.5px);
+  }
+  70% {
+    border-right-color: transparent;
+  }
+  71% {
+    border-right-color: var(--progress-bar-color);
+  }
+  75% {
+    transform: rotate(0deg) translate(0, -12.5px);
+  }
+  100% {
+    transform: rotate(0deg) translate(0, -12.5px);
+  }
+}
+@keyframes circle-medium {
+  0% {
+    transform: rotate(0deg) translate(0, -25px);
+  }
+  25% {
+    transform: rotate(0deg) translate(0, -25px);
+  }
+  43% {
+    border-right-color: var(--progress-bar-color);
+  }
+  44% {
+    border-right-color: transparent;
+  }
+  50% {
+    transform: rotate(-90deg) translate(0, -25px);
+  }
+  65% {
+    transform: rotate(-180deg) translate(0, -25px);
+  }
+  70% {
+    border-right-color: transparent;
+  }
+  71% {
+    border-right-color: var(--progress-bar-color);
+  }
+  75% {
+    transform: rotate(0deg) translate(0, -25px);
+  }
+  100% {
+    transform: rotate(0deg) translate(0, -25px);
+  }
+}
+@keyframes circle-large {
+  0% {
+    transform: rotate(0deg) translate(0, -50px);
+  }
+  25% {
+    transform: rotate(0deg) translate(0, -50px);
+  }
+  43% {
+    border-right-color: var(--progress-bar-color);
+  }
+  44% {
+    border-right-color: transparent;
+  }
+  50% {
+    transform: rotate(-90deg) translate(0, -50px);
+  }
+  65% {
+    transform: rotate(-180deg) translate(0, -50px);
+  }
+  70% {
+    border-right-color: transparent;
+  }
+  71% {
+    border-right-color: var(--progress-bar-color);
+  }
+  75% {
+    transform: rotate(0deg) translate(0, -50px);
+  }
+  100% {
+    transform: rotate(0deg) translate(0, -50px);
+  }
+}
+@keyframes inner {
+  0% {
+    transform: rotate(0deg) translate(0, 50%);
+  }
+  25% {
+    transform: rotate(90deg) translate(0, 50%);
+  }
+  50% {
+    transform: rotate(180deg) translate(0, 50%);
+  }
+  75% {
+    transform: rotate(270deg) translate(0, 50%);
+  }
+  100% {
+    transform: rotate(360deg) translate(0, 50%);
+  }
+}
+@keyframes container {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
