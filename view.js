@@ -9,7 +9,7 @@ async function getData() {
       itemWrapper.id = id;
       itemWrapper.className = "item-wrapper";
       ref.child(`${stName}${id}`).list({maxResults: 1}).then(list =>
-        list.items.forEach(item => {
+        list.items.map((item, index) => {
           item.getDownloadURL().then(url => {
             itemWrapper.innerHTML = `
               <span class="item-name">${name}</span>
@@ -20,6 +20,9 @@ async function getData() {
               </div>
             `;
             container.append(itemWrapper);
+            if (index === list.items.length - 1) {
+              $(".hole-screen-white").css("display", "none");
+            }
           })
         })
       );
@@ -63,6 +66,8 @@ $(".action-yes").on("click", async () => {
                 break;
               }
             }
+            $(".result-wrapper").fadeIn("fast");
+            setTimeout(() => $(".result-wrapper").fadeOut("slow"), 3500);
           }
         })
       )

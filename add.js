@@ -49,6 +49,8 @@ $("form.addForm").on("submit", async event => {
           document.querySelector("input[name='price']").value = "";
           document.querySelector("textarea[name='desc']").value = "";
           $("i.iconDeleteAll").trigger("click");
+          $(".result-wrapper").fadeIn("fast");
+          setTimeout(() => $(".result-wrapper").fadeOut("slow"), 3500);
         }
       });
     })

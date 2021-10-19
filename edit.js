@@ -1,7 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-function appendUrl(url, name) {
+function appendUrl(url, name, isAll) {
   $("#img-container").append(`
     <div class="img-wrapper" data-index="${preFiles.length}">
       <img src='${url}' alt='image' class="img"/>
@@ -9,23 +9,15 @@ function appendUrl(url, name) {
     </div>
   `);
   preFiles.push(name);
-}
-async function addFile(url, isAll) {
-  let name = url.split("/");
-  name = name[name.length - 1];
-  await fetch(url).then(res => {
-    res.blob().then(blob => {
-      files.push(new File([blob], name));
-      if (isAll) {
-        $("button[type='submit']").css({
-          display: "flex"
-        });
-        $(".delete1, .iconDeleteAll").css({
-          display: "unset"
-        });
-      }
+  files.push({name});
+  if (isAll) {
+    $("button[type='submit']").css({
+      display: "flex"
     });
-  });
+    $(".delete1, .iconDeleteAll").css({
+      display: "unset"
+    });
+  }
 }
 async function getData() {
   await db.collection(dbName).doc(id).get().then(item => {
@@ -40,8 +32,7 @@ async function getData() {
       ref.child(`${stName}${id}`).listAll().then(list =>
         list.items.map((item, index) =>
           item.getDownloadURL().then(url => {
-            appendUrl(url, item.name);
-            addFile(`https://apis.blue-standard-water-tech.com/${stName}${id}/${item.name}`, index === list.items.length - 1);
+            appendUrl(url, item.name, index === list.items.length - 1);
           })
         )
       );
@@ -127,6 +118,8 @@ $("form.editForm").on("submit", async event => {
     $(".hole-screen, .loading").css({
       display: "none"
     });
+    $(".result-wrapper").fadeIn("fast");
+    setTimeout(() => $(".result-wrapper").fadeOut("slow"), 3500);
   }
   if (Object.keys(updateObject).length > 0) {
     await db.collection(dbName).doc(id).update(updateObject).then(() =>

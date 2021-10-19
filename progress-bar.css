@@ -2,7 +2,6 @@
   --progress-bar-color: #fff;
 }
 .progress-bar-small, .progress-bar-medium, .progress-bar-large {
-  position: relative;
   width: fit-content;
   height: fit-content;
   animation-name: container;
@@ -37,7 +36,6 @@
   width: 50%;
   height: 50%;
   border-radius: 50%;
-  border-top-color: transparent;
   animation-duration: 2000ms;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
@@ -46,16 +44,19 @@
   /* cx = 50%, cy = -(size / 2 - border)*/
   animation-name: circle-small;
   border: 1px solid var(--progress-bar-color);
+  border-top-color: transparent;
   transform-origin: 50% -5.25px;
 }
 .progress-bar-medium .circle {
   animation-name: circle-medium;
   border: 2px solid var(--progress-bar-color);
+  border-top-color: transparent;
   transform-origin: 50% -10.5px;
 }
 .progress-bar-large .circle {
   animation-name: circle-large;
   border: 3px solid var(--progress-bar-color);
+  border-top-color: transparent;
   transform-origin: 50% -22px;
 }
 @keyframes circle-small {
