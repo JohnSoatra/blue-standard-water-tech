@@ -16,6 +16,11 @@
     <meta name="keyword" content="blue-standard-water-tech, blue-standard-water, blue-standard, blue standard water tech">
     <meta property="og:image" content="https://blue-standard-water-tech.com/big-banner.jpg">
     <meta property="twitter:image" content="https://blue-standard-water-tech.com/big-banner.jpg">
+    <style>
+      :root{
+        --large-pro: #ea3434;
+      }
+    </style>
     <script src="jquery.min.js"></script>
     <title>View</title>
   </head>
@@ -42,6 +47,13 @@
     <span class="result-wrapper">
       <span class="result">ទំនិញថ្មីត្រូវបានលុបដោយជោគជ័យ<i class="material-icons iconDone">done</i></span>
     </span>
+    <div class="more-wrapper">
+      <span class="more">
+        more
+        <i class="material-icons iconMore">expand_more</i>
+        <div class="progress-bar-small proSmall"><div class="inner"><div class="circle"></div></div></div>
+      </span>
+    </div>
     <div class="hole-screen-white">
       <div class="progress-bar-large">
         <div class="inner">
@@ -65,10 +77,9 @@
       const db = firebase.firestore();
       const storage = firebase.app().storage("gs://blue-standard.appspot.com");
       const ref = storage.ref();
-      db.enablePersistence();
     </script>
     <script src="names.js"></script>
-    <script src="app.js"></script>
     <script src="view.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>

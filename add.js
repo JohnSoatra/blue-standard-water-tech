@@ -38,23 +38,31 @@ $("form.addForm").on("submit", async event => {
     display: "flex"
   });
   price = parseFloat(price);
-  await db.collection(dbName).add({name, price, description}).then(data => 
-    files.map((file, index) => {
-      ref.child(`${stName}${data.id}/${file.name}`).put(file).then(() => {
-        if (index === files.length - 1) {
-          $(".hole-screen, .loading").css({
-            display: "none"
-          });
-          document.querySelector("input[name='name']").value = "";
-          document.querySelector("input[name='price']").value = "";
-          document.querySelector("textarea[name='desc']").value = "";
-          $("i.iconDeleteAll").trigger("click");
-          $(".result-wrapper").fadeIn("fast");
-          setTimeout(() => $(".result-wrapper").fadeOut("slow"), 3500);
-        }
-      });
-    })
-  ).then(() => console.log("success"));
+  await db.collection(dbName).orderBy("time", "desc").limit(1).get().then(qs => {
+    let id;
+    const time = Date.now();
+    qs.forEach(doc => {
+      id = parseInt(doc.data().id);
+    });
+    id += 1;
+    return db.collection(dbName).add({name, price, description, id, time}).then(data => 
+      files.map((file, index) => {
+        ref.child(`${stName}${data.id}/${file.name}`).put(file).then(() => {
+          if (index === files.length - 1) {
+            $(".hole-screen, .loading").css({
+              display: "none"
+            });
+            document.querySelector("input[name='name']").value = "";
+            document.querySelector("input[name='price']").value = "";
+            document.querySelector("textarea[name='desc']").value = "";
+            $("i.iconDeleteAll").trigger("click");
+            $(".result-wrapper").fadeIn("fast");
+            setTimeout(() => $(".result-wrapper").fadeOut("slow"), 3500);
+          }
+        });
+      })
+    ).then(() => console.log("success"));
+  })
 });
 $("input, textarea").on("focus", function(event) {
   this.parentElement.style.borderColor = "rgba(28, 78, 170, 0.5)";

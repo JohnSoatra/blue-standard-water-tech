@@ -1,4 +1,4 @@
-const static = "static-v2";
+const static = "static-v1";
 const assets = [
   "fallback.html"
 ];

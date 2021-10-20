@@ -1,5 +1,7 @@
 :root {
-  --progress-bar-color: #fff;
+  --small-pro: #fff;
+  --medium-pro: #fff;
+  --large-pro: #fff;
 }
 .progress-bar-small, .progress-bar-medium, .progress-bar-large {
   width: fit-content;
@@ -43,19 +45,19 @@
 .progress-bar-small .circle {
   /* cx = 50%, cy = -(size / 2 - border)*/
   animation-name: circle-small;
-  border: 1px solid var(--progress-bar-color);
+  border: 1px solid var(--small-pro);
   border-top-color: transparent;
   transform-origin: 50% -5.25px;
 }
 .progress-bar-medium .circle {
   animation-name: circle-medium;
-  border: 2px solid var(--progress-bar-color);
+  border: 2px solid var(--medium-pro);
   border-top-color: transparent;
   transform-origin: 50% -10.5px;
 }
 .progress-bar-large .circle {
   animation-name: circle-large;
-  border: 3px solid var(--progress-bar-color);
+  border: 3px solid var(--large-pro);
   border-top-color: transparent;
   transform-origin: 50% -22px;
 }
@@ -67,7 +69,7 @@
     transform: rotate(0deg) translate(0, -12.5px);
   }
   43% {
-    border-right-color: var(--progress-bar-color);
+    border-right-color: var(--small-pro);
   }
   44% {
     border-right-color: transparent;
@@ -82,7 +84,7 @@
     border-right-color: transparent;
   }
   71% {
-    border-right-color: var(--progress-bar-color);
+    border-right-color: var(--small-pro);
   }
   75% {
     transform: rotate(0deg) translate(0, -12.5px);
@@ -99,7 +101,7 @@
     transform: rotate(0deg) translate(0, -25px);
   }
   43% {
-    border-right-color: var(--progress-bar-color);
+    border-right-color: var(--medium-pro);
   }
   44% {
     border-right-color: transparent;
@@ -114,7 +116,7 @@
     border-right-color: transparent;
   }
   71% {
-    border-right-color: var(--progress-bar-color);
+    border-right-color: var(--medium-pro);
   }
   75% {
     transform: rotate(0deg) translate(0, -25px);
@@ -131,7 +133,7 @@
     transform: rotate(0deg) translate(0, -50px);
   }
   43% {
-    border-right-color: var(--progress-bar-color);
+    border-right-color: var(--large-pro);
   }
   44% {
     border-right-color: transparent;
@@ -146,7 +148,7 @@
     border-right-color: transparent;
   }
   71% {
-    border-right-color: var(--progress-bar-color);
+    border-right-color: var(--large-pro);
   }
   75% {
     transform: rotate(0deg) translate(0, -50px);
