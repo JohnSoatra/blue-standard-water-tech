@@ -1,0 +1,127 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+icon {
+  font-family: "awesome";
+  cursor: default;
+}
+a {
+  text-decoration: none;
+}
+body {
+  font-family: "-apple-system", "BlinkMacSystemFont", 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background-color: #f9f9f9;
+  color: #202020f9;
+  font-size: 16px;
+}
+.contact {
+  display: flex;
+  justify-content: space-evenly;
+  min-width: 250px;
+  padding: 10px;
+}
+.iconPhone, .iconTl, .iconFb {
+  font-size: 30px;
+}
+.iconPhone {
+  color: #0dc247;
+}
+.iconTl {
+  color: #0088cc;
+}
+.iconFb {
+  color: #4266b2;
+}
+code {
+  font-family: "source-code-pro", "Menlo", "Monaco", 
+    "Consolas", 'Courier New', monospace;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.header, .footer {
+  width: 100%;
+  height: 40px;
+  background-color: rgb(81 126 252);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer {
+  background-color: transparent;
+  border-top: 1px solid #0088cc73;
+}
+.title {
+  color: #f8f8f8;
+  font-weight: 500;
+  font-size: 17px;
+}
+.footer-title {
+  font-size: 14px;
+  color: #0078b4;
+  font-family: "nokora-regular";
+}
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profile-wrapper {
+  display: flex;
+  flex-direction: column;
+  
+}
+.profile {
+  width: 170px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 4px 2px rgb(194, 194, 194);
+}
+.name {
+  color: #039436;
+  text-align: center;
+  font-size: 24px;
+  padding-top: 8px;
+  font-family: "nokora-regular";
+}
+.desc {
+  margin: 20px 0px;
+  font-family: "nokora-regular";
+}
+@media only screen and (max-width: 700px) {
+  .content {
+    width: 95%;
+  }
+  .title {
+    font-size: 16px;
+  }
+  .profile {
+    width: 145px;
+  }
+  .name {
+    font-size: 20px;
+  }
+  .iconPhone, .iconTl, .iconFb {
+    font-size: 25px;
+  }
+}
+@media only screen and (min-width: 700px) {
+  .content {
+    width: 85%;
+  }
+}
+@media only screen and (min-width: 900px) {
+  .content {
+    width: 75%;
+  }
+}
